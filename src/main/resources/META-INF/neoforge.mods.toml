@@ -1,0 +1,15 @@
+modLoader="javafml"
+loaderVersion="[2,)"
+license="MIT"
+
+[[mods]]
+modId="cc_relinked"
+version="1.0.0"
+displayName="CC Relinked"
+
+[[dependencies.cc_relinked]]
+modId="computercraft"
+type="required"
+versionRange="[1.120.0,)"
+ordering="AFTER"
+side="BOTH"
