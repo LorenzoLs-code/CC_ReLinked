@@ -1,6 +1,7 @@
 package com.LorenzoL.CC_ReLinked;
 
 import com.LorenzoL.CC_ReLinked.block.ModBlocks;
+import com.LorenzoL.CC_ReLinked.item.ModCreativeModeTabs;
 import com.LorenzoL.CC_ReLinked.item.ModItems;
 import net.minecraft.world.item.CreativeModeTabs;
 import org.slf4j.Logger;
@@ -37,6 +38,7 @@ public class CC_Relinked {
 
         ModItems.register (modEventBus);
         ModBlocks.register(modEventBus);
+        ModCreativeModeTabs.register(modEventBus);
 
         // Register the item to a creative tab
         modEventBus.addListener(this::addCreative);
@@ -49,13 +51,7 @@ public class CC_Relinked {
     }
 
     // Add the example block item to the building blocks tab
-    private void addCreative(BuildCreativeModeTabContentsEvent event) {
-        if(event.getTabKey() == CreativeModeTabs.INGREDIENTS) {
-            event.accept(ModItems.RedstoneLens);
-            event.accept(ModBlocks.CableHub);
-        }
-
-    }
+    private void addCreative(BuildCreativeModeTabContentsEvent event) {}
 
     // You can use SubscribeEvent and let the Event Bus discover methods to call
     @SubscribeEvent

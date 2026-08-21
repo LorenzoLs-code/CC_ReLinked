@@ -1,4 +1,7 @@
 {
   "item.cc_relinked.redstone_lens": "Redstone Lens",
-  "block.cc_relinked.cable_hub_block": "Cable Hub"
+
+  "block.cc_relinked.cable_hub_block": "Cable Hub",
+
+  "creativtab.cc_relinked.cc_relinked_tab": "CC: ReLinked"
 }
