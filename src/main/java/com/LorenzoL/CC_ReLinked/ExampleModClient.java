@@ -1,4 +1,4 @@
-package com.LorenzoL.CC_Linked;
+package com.LorenzoL.CC_ReLinked;
 
 import net.minecraft.client.Minecraft;
 import net.neoforged.api.distmarker.Dist;

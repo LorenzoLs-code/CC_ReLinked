@@ -1,5 +1,7 @@
-package com.LorenzoL.CC_Linked;
+package com.LorenzoL.CC_ReLinked;
 
+import com.LorenzoL.CC_ReLinked.item.ModItems;
+import net.minecraft.world.item.CreativeModeTabs;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
@@ -32,6 +34,8 @@ public class CC_Relinked {
         // Do not add this line if there are no @SubscribeEvent-annotated functions in this class, like onServerStarting() below.
         NeoForge.EVENT_BUS.register(this);
 
+        ModItems.register(modEventBus);
+
         // Register the item to a creative tab
         modEventBus.addListener(this::addCreative);
 
@@ -44,7 +48,9 @@ public class CC_Relinked {
 
     // Add the example block item to the building blocks tab
     private void addCreative(BuildCreativeModeTabContentsEvent event) {
-
+        if(event.getTabKey() == CreativeModeTabs.INGREDIENTS) {
+            event.accept(ModItems.RedstoneLens);
+        }
 
     }
 
