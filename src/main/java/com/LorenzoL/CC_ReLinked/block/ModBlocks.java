@@ -1,6 +1,7 @@
 package com.LorenzoL.CC_ReLinked.block;
 
 import com.LorenzoL.CC_ReLinked.CC_Relinked;
+import com.LorenzoL.CC_ReLinked.block.custom.CableHubBlock;
 import com.LorenzoL.CC_ReLinked.item.ModItems;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
@@ -16,19 +17,20 @@ import java.util.function.Supplier;
 public class ModBlocks {
     public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(CC_Relinked.MOD_ID);
 
+
     public static final DeferredBlock<Block> CableHub = registerBlock(
             "cable_hub_block",
-            () -> new Block(BlockBehaviour.Properties.of()
-                    .strength(4f)));
+            () -> new CableHubBlock(BlockBehaviour.Properties.of()));
 
+
+    // helper funcs
     private static <T extends Block> DeferredBlock<T> registerBlock(String name, Supplier<T> block){
         DeferredBlock<T> toReturn = BLOCKS.register(name, block);
         registerBlockItem(name, toReturn);
-        return  toReturn;
-    }
+        return  toReturn;}
     private static <T extends Block> void registerBlockItem(String name, DeferredBlock<T> block) {
         ModItems.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
-    }
+    } // ---
 
     public static void register(IEventBus eventBus) {
         BLOCKS.register(eventBus);

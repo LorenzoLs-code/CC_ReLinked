@@ -1,6 +1,7 @@
 package com.LorenzoL.CC_ReLinked;
 
 import com.LorenzoL.CC_ReLinked.block.ModBlocks;
+import com.LorenzoL.CC_ReLinked.block.entity.ModBlockEntitys;
 import com.LorenzoL.CC_ReLinked.item.ModCreativeModeTabs;
 import com.LorenzoL.CC_ReLinked.item.ModItems;
 import net.minecraft.world.item.CreativeModeTabs;
@@ -37,7 +38,10 @@ public class CC_Relinked {
         NeoForge.EVENT_BUS.register(this);
 
         ModItems.register (modEventBus);
+
         ModBlocks.register(modEventBus);
+        ModBlockEntitys.register(modEventBus);
+
         ModCreativeModeTabs.register(modEventBus);
 
         // Register the item to a creative tab
