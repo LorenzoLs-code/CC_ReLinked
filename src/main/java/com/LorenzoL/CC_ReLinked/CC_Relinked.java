@@ -2,8 +2,10 @@ package com.LorenzoL.CC_ReLinked;
 
 import com.LorenzoL.CC_ReLinked.block.ModBlocks;
 import com.LorenzoL.CC_ReLinked.block.entity.ModBlockEntitys;
+import com.LorenzoL.CC_ReLinked.block.peripheral.CableHubPeripheral;
 import com.LorenzoL.CC_ReLinked.item.ModCreativeModeTabs;
 import com.LorenzoL.CC_ReLinked.item.ModItems;
+import dan200.computercraft.api.ComputerCraftAPI;
 import net.minecraft.world.item.CreativeModeTabs;
 import org.slf4j.Logger;
 
@@ -37,12 +39,16 @@ public class CC_Relinked {
         // Do not add this line if there are no @SubscribeEvent-annotated functions in this class, like onServerStarting() below.
         NeoForge.EVENT_BUS.register(this);
 
+        /* mod */
         ModItems.register (modEventBus);
 
         ModBlocks.register(modEventBus);
         ModBlockEntitys.register(modEventBus);
 
         ModCreativeModeTabs.register(modEventBus);
+
+        /* cc */
+        ComputerCraftAPI.registerGenericSource(new CableHubPeripheral());
 
         // Register the item to a creative tab
         modEventBus.addListener(this::addCreative);
@@ -51,14 +57,12 @@ public class CC_Relinked {
         modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
     }
 
-    private void commonSetup(FMLCommonSetupEvent event) {
-    }
+    private void commonSetup(FMLCommonSetupEvent event) {}
 
     // Add the example block item to the building blocks tab
     private void addCreative(BuildCreativeModeTabContentsEvent event) {}
 
     // You can use SubscribeEvent and let the Event Bus discover methods to call
     @SubscribeEvent
-    public void onServerStarting(ServerStartingEvent event) {
-    }
+    public void onServerStarting(ServerStartingEvent event) {}
 }
