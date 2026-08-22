@@ -2,11 +2,10 @@ package com.LorenzoL.CC_ReLinked;
 
 import com.LorenzoL.CC_ReLinked.block.ModBlocks;
 import com.LorenzoL.CC_ReLinked.block.entity.ModBlockEntitys;
-import com.LorenzoL.CC_ReLinked.block.peripheral.CableHubPeripheral;
+import com.LorenzoL.CC_ReLinked.peripheral.CableHubPeripheral;
 import com.LorenzoL.CC_ReLinked.item.ModCreativeModeTabs;
 import com.LorenzoL.CC_ReLinked.item.ModItems;
 import dan200.computercraft.api.ComputerCraftAPI;
-import net.minecraft.world.item.CreativeModeTabs;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;

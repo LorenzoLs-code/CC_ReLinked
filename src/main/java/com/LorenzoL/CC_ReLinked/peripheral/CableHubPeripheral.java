@@ -1,10 +1,8 @@
-package com.LorenzoL.CC_ReLinked.block.peripheral;
+package com.LorenzoL.CC_ReLinked.peripheral;
 
-import com.LorenzoL.CC_ReLinked.CC_Relinked;
 import com.LorenzoL.CC_ReLinked.block.entity.CableHubBlockEntity;
 import dan200.computercraft.api.lua.LuaFunction;
 import dan200.computercraft.api.peripheral.GenericPeripheral;
-import net.minecraft.resources.ResourceLocation;
 
 public class CableHubPeripheral implements GenericPeripheral {
     @Override
