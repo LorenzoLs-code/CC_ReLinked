@@ -6,6 +6,8 @@ import dan200.computercraft.api.lua.LuaFunction;
 import dan200.computercraft.api.peripheral.GenericPeripheral;
 import edn.stratodonut.drivebywire.wire.WireNetworkManager;
 
+import java.util.Map;
+
 public class CableHubPeripheral implements GenericPeripheral {
     @Override
     public String id() {
@@ -19,6 +21,7 @@ public class CableHubPeripheral implements GenericPeripheral {
 
         if (value > 0) { return true; }
         else { return false; }
+
     }
 
     @LuaFunction
@@ -31,7 +34,14 @@ public class CableHubPeripheral implements GenericPeripheral {
     // ----
     @LuaFunction
     public int getAnalogChannel(CableHubBlockEntity myCableHub, int channel_ID) {
-        return -1;
+        try {
+            return WireNetworkManager
+                    .get(myCableHub.getLevel())
+                    .getSourceSignals(myCableHub.getBlockPos())
+                    .get(Integer.toString(channel_ID));
+        } catch (Exception e) {
+            return 0;
+        }
     }
 
     @LuaFunction
