@@ -1,12 +1,15 @@
 package com.LorenzoL.CC_ReLinked;
 
+import com.LorenzoL.CC_ReLinked.peripheral.DataGlassesPeripheral;
 import net.minecraft.client.Minecraft;
+import net.minecraft.resources.ResourceLocation;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.neoforge.client.event.RegisterGuiLayersEvent;
 import net.neoforged.neoforge.client.gui.ConfigurationScreen;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 
@@ -27,5 +30,13 @@ public class ExampleModClient {
         // Some client setup code
         /*CC_Relinked.LOGGER.info("HELLO FROM CLIENT SETUP");
         CC_Relinked.LOGGER.info("MINECRAFT NAME >> {}", Minecraft.getInstance().getUser().getName());*/
+    }
+
+    @SubscribeEvent
+    static void onRegisterGuiLayers(RegisterGuiLayersEvent event) {
+        event.registerAboveAll(
+                ResourceLocation.fromNamespaceAndPath(CC_Relinked.MOD_ID, "data_glasses_overlay"),
+                DataGlassesPeripheral::RenderOverlay
+        );
     }
 }

@@ -5,6 +5,7 @@ import com.LorenzoL.CC_ReLinked.block.entity.ModBlockEntitys;
 import com.LorenzoL.CC_ReLinked.peripheral.CableHubPeripheral;
 import com.LorenzoL.CC_ReLinked.item.ModCreativeModeTabs;
 import com.LorenzoL.CC_ReLinked.item.ModItems;
+import com.LorenzoL.CC_ReLinked.peripheral.DataGlassesPeripheral;
 import dan200.computercraft.api.ComputerCraftAPI;
 import org.slf4j.Logger;
 
@@ -48,6 +49,7 @@ public class CC_Relinked {
 
         /* cc */
         ComputerCraftAPI.registerGenericSource(new CableHubPeripheral());
+        ComputerCraftAPI.registerGenericSource(new DataGlassesPeripheral());
 
         // Register the item to a creative tab
         modEventBus.addListener(this::addCreative);

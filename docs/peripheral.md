@@ -1,5 +1,5 @@
 # Peripherals
-The best way to get the peripheral is via wrap
+The best way to get the peripheral is via peripheral.wrap. **peripheral.find dose not work**. 
 > Example: CableHub = peripheral.warp("top")
 ---
 ## Cable Hub - functions

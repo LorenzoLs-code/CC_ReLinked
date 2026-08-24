@@ -22,7 +22,9 @@ public class ModCreativeModeTabs {
 
             .displayItems((itemDisplayParameters, output) -> {
                 output.accept(ModBlocks.CableHub);
+
                 output.accept(ModItems.RedstoneLens);
+                output.accept(ModItems.DataGlasses);
             }).build());
 
 
