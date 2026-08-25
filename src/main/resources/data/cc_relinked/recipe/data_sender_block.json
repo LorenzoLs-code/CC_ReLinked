@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "SWS",
+    "RDR",
+    "SFS"
+  ],
+  "key": {
+    "W": {
+      "item": "computercraft:wireless_modem_normal"
+    },
+    "S": {
+      "item": "minecraft:stone"
+    },
+    "D": {
+      "item": "computercraft:disk_drive"
+    },
+    "F": {
+      "item": "computercraft:disk"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    }
+  },
+  "result": {
+    "id": "cc_relinked:data_sender_block",
+    "count": 1
+  }
+}

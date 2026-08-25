@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "I I",
+    "LIL",
+    "  C"
+  ],
+  "key": {
+    "L": {
+      "item": "cc_relinked:redstone_lens"
+    },
+    "C": {
+      "item": "computercraft:pocket_computer_normal"
+    },
+    "I": {
+      "item": "minecraft:iron_ingot"
+    }
+  },
+  "result": {
+    "id": "cc_relinked:data_glasses",
+    "count": 1
+  }
+}
