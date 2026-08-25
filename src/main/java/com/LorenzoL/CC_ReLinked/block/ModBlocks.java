@@ -2,6 +2,7 @@ package com.LorenzoL.CC_ReLinked.block;
 
 import com.LorenzoL.CC_ReLinked.CC_Relinked;
 import com.LorenzoL.CC_ReLinked.block.custom.CableHubBlock;
+import com.LorenzoL.CC_ReLinked.block.custom.DataSenderBlock;
 import com.LorenzoL.CC_ReLinked.item.ModItems;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
@@ -21,6 +22,10 @@ public class ModBlocks {
     public static final DeferredBlock<Block> CableHub = registerBlock(
             "cable_hub_block",
             () -> new CableHubBlock(BlockBehaviour.Properties.of()));
+
+    public static final DeferredBlock<Block> DataSender = registerBlock(
+            "data_sender_block",
+            () -> new DataSenderBlock(BlockBehaviour.Properties.of()));
 
 
     // helper funcs

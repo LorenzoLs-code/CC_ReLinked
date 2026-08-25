@@ -20,6 +20,9 @@ public class ModBlockEntitys {
             BLOCK_ENTITYS.register("cablehub_be", () -> BlockEntityType.Builder.of(
                     CableHubBlockEntity::new, ModBlocks.CableHub.get()).build(null));
 
+    public static final Supplier<BlockEntityType<DataSenderBlockEntity>> DataSender_BE =
+            BLOCK_ENTITYS.register("datasender_be", () -> BlockEntityType.Builder.of(
+                    DataSenderBlockEntity::new, ModBlocks.DataSender.get()).build(null));
 
     public static void register(IEventBus eventBus) {
         BLOCK_ENTITYS.register(eventBus);

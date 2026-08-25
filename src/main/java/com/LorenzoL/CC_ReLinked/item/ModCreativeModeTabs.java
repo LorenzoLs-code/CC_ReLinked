@@ -25,6 +25,7 @@ public class ModCreativeModeTabs {
 
                 output.accept(ModItems.RedstoneLens);
                 output.accept(ModItems.DataGlasses);
+                output.accept(ModBlocks.DataSender);
             }).build());
 
 
