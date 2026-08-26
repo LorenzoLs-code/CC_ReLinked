@@ -1,11 +1,14 @@
 package com.LorenzoL.CC_ReLinked.block.custom;
 
 import com.LorenzoL.CC_ReLinked.block.entity.DataSenderBlockEntity;
+import com.LorenzoL.CC_ReLinked.component.ModDataComponents;
+import com.LorenzoL.CC_ReLinked.component.custom.GlassesData;
 import com.LorenzoL.CC_ReLinked.item.ModItems;
 import com.LorenzoL.CC_ReLinked.peripheral.DataGlassesPeripheral;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -15,8 +18,11 @@ import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jspecify.annotations.Nullable;
+
+import java.util.UUID;
 
 public class DataSenderBlock extends BaseEntityBlock {
     public DataSenderBlock(Properties properties) { super(properties); }
@@ -44,24 +50,27 @@ public class DataSenderBlock extends BaseEntityBlock {
     protected void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean movedByPiston) {
         super.onPlace(state, level, pos, oldState, movedByPiston);
         if (level.isClientSide) return;
-        if (state.getBlock() == oldState.getBlock()) return;
+        if (state.getBlock() != oldState.getBlock()) {
 
-        // create block in OverlayData
-        DataGlassesPeripheral.OverlayData.put(
-                DataGlassesPeripheral.getOverlayDataKey(pos),
-                DataGlassesPeripheral.NullRenderData()
-        );}
+            if (level.getBlockEntity(pos) instanceof DataSenderBlockEntity blockEntity) {
+            // create block in OverlayData
+                DataGlassesPeripheral.OverlayData.put(
+                        blockEntity.getId(),
+                    DataGlassesPeripheral.NullRenderData()
+            );}}}
     @Override
     protected void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean movedByPiston) {
         if (level.isClientSide) return;
+        if (state.getBlock() != newState.getBlock()) {
+            if (level.getBlockEntity(pos) instanceof DataSenderBlockEntity blockEntity) {
 
-        // remove block form OverlayData
-        DataGlassesPeripheral.OverlayData.remove(
-                DataGlassesPeripheral.getOverlayDataKey(pos)
-        );
+                // remove block form OverlayData
+                DataGlassesPeripheral.OverlayData.remove(
+                    blockEntity.getId()
+            );
 
-        super.onRemove(state, level, pos, newState, movedByPiston);
-    }
+            super.onRemove(state, level, pos, newState, movedByPiston);
+            }}}
 
     @Override
     protected ItemInteractionResult useItemOn(
@@ -74,8 +83,42 @@ public class DataSenderBlock extends BaseEntityBlock {
             BlockHitResult hitResult
     ) {
         if (stack.getItem() != ModItems.DataGlasses.get()) { return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION; }
-        
-        // code
+
+        boolean connected = stack.getOrDefault(ModDataComponents.GLASSES_CONNECTED.get(), true);
+        UUID senderId;
+        try {
+            senderId = stack.get(ModDataComponents.GLASSES_DATA.get()).senderId();
+        } catch (Exception e) {
+            if (level.getBlockEntity(pos) instanceof DataSenderBlockEntity blockEntity) {
+                stack.set(ModDataComponents.GLASSES_CONNECTED.get(), true);
+                stack.set(ModDataComponents.GLASSES_DATA.get(), new GlassesData(blockEntity.getId()));
+                // - message
+                player.displayClientMessage(Component.literal("Linked"), true);
+            } return ItemInteractionResult.SUCCESS;
+        }
+
+        if (level.getBlockEntity(pos) instanceof DataSenderBlockEntity blockEntity) {
+
+            if (blockEntity.getId() == senderId
+            ) {// same block as before
+                stack.set(ModDataComponents.GLASSES_CONNECTED.get(),
+                        !connected);
+                // - message
+                if (!connected) {
+                    player.displayClientMessage(Component.literal("Linked"), true);
+                } else {
+                    player.displayClientMessage(Component.literal("Unlinked"), true);
+                }
+
+            } else { // other block then before
+                stack.set(ModDataComponents.GLASSES_CONNECTED.get(), true);
+                stack.set(ModDataComponents.GLASSES_DATA.get(), new GlassesData(blockEntity.getId()));
+                // - message
+                player.displayClientMessage(Component.literal("Linked"), true);
+
+                return ItemInteractionResult.SUCCESS;
+            }}
         return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
     }
+
 }

@@ -1,5 +1,7 @@
 package com.LorenzoL.CC_ReLinked.peripheral;
 
+import com.LorenzoL.CC_ReLinked.component.ModDataComponents;
+import com.LorenzoL.CC_ReLinked.component.custom.GlassesData;
 import com.LorenzoL.CC_ReLinked.item.ModArmorMaterials;
 import com.LorenzoL.CC_ReLinked.item.ModItems;
 import dan200.computercraft.api.peripheral.GenericPeripheral;
@@ -12,10 +14,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class DataGlassesPeripheral implements GenericPeripheral {
     @Override
@@ -25,17 +24,13 @@ public class DataGlassesPeripheral implements GenericPeripheral {
 
     // ===== OVERLAY =====
     // ===== Data Storage & Utils
-    public static Map<List<Integer>, Map<Integer, List<List<Object>>>> OverlayData;
+    public static final Map<UUID, Map<Integer, List<List<Object>>>> OverlayData = new HashMap<>();;
     public static Map<Integer, List<List<Object>>> NullRenderData() {
         Map<Integer, List<List<Object>>> M = new HashMap<>();
-        List<List<Object>> N = new ArrayList<>();
+        List<List<Object>> N = new ArrayList<List<Object>>();
         M.put(0, N);
 
         return M;}
-    public static List<Integer> getOverlayDataKey(BlockPos pos) {
-        return List.of(pos.getX(), pos.getY(), pos.getZ());
-    }
-
     // ===== Rendering
     public static void RenderOverlay(GuiGraphics guiGraphics, DeltaTracker deltaTracker) {
         // ====== checks =====
@@ -47,16 +42,29 @@ public class DataGlassesPeripheral implements GenericPeripheral {
         ItemStack helmet = player.getItemBySlot(EquipmentSlot.HEAD);
         if (helmet.getItem() !=  ModItems.DataGlasses.get()) { return; }
 
-        // ====== Actual Code ======
+        // check if the glasses are connected
+        if (!helmet.getOrDefault(ModDataComponents.GLASSES_CONNECTED.get(), false)) { guiGraphics.drawString(
+                Minecraft.getInstance().font, "Not Linked", 5, 5, 0xFFFFFF); return; }
 
+        // ====== Actual Code ======
+        UUID senderId;
         try {
-            Map<Integer, List<List<Object>>> RenderData = OverlayData.get("");
+            senderId = helmet.get(ModDataComponents.GLASSES_DATA.get()).senderId();
+        } catch (Exception e) { guiGraphics.drawString(
+                Minecraft.getInstance().font, "Not Linked", 5, 5, 0xFFFFFF); return; }
+
+        Map<Integer, List<List<Object>>> RenderData =
+                OverlayData.get(senderId);
+
+        int count = 0;
+        try {
             for (List<Object> l : RenderData.get(0)) {
                 guiGraphics.drawString(
                         Minecraft.getInstance().font,           // font
                         (String) l.get(0),                      // text (0)
-                        (Integer) l.get(1), (Integer) l.get(2),  // x (1), y (2)
+                        (Integer) l.get(1), (Integer) l.get(2), // x (1), y (2)
                         0xFFFFFF);                              // color
+                count++;
             }
         } catch (Exception e) {
             guiGraphics.drawString(
@@ -65,6 +73,11 @@ public class DataGlassesPeripheral implements GenericPeripheral {
             guiGraphics.drawString(
                     Minecraft.getInstance().font,
                     "please report this error to CC: ReLinked", 5, 15, 0xFF0000);
+        }
+
+        if (count == 0) {
+            guiGraphics.drawString(
+                Minecraft.getInstance().font, "Linked", 5, 5, 0xFFFFFF);
         }
     }
 }
