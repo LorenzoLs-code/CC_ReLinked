@@ -28,7 +28,7 @@ public class DataGlassesPeripheral implements GenericPeripheral {
     private OverlayDataStorage dataStorage = new OverlayDataStorage(new HashMap<>());
 
     @LuaFunction
-    public int CreateText(DataSenderBlockEntity blockEntity, String text, int x, int y) {
+    public int createText(DataSenderBlockEntity blockEntity, String text, int x, int y) {
         OverlayLayerData current = dataStorage.data().getOrDefault(blockEntity.getId(), NullRenderData());
 
         List<TextCommand> updatedTextCommands = new ArrayList<>(current.textCommands());
@@ -41,7 +41,7 @@ public class DataGlassesPeripheral implements GenericPeripheral {
     }
 
     @LuaFunction
-    public void DeleteText(DataSenderBlockEntity blockEntity, int text_index) throws LuaException {
+    public void deleteText(DataSenderBlockEntity blockEntity, int text_index) throws LuaException {
         OverlayLayerData current = dataStorage.data().getOrDefault(blockEntity.getId(), NullRenderData());
 
         List<TextCommand> updatedTextCommands = new ArrayList<>(current.textCommands());
@@ -53,12 +53,12 @@ public class DataGlassesPeripheral implements GenericPeripheral {
     }
 
     @LuaFunction
-    public void Clear(DataSenderBlockEntity blockEntity) {
+    public void clear(DataSenderBlockEntity blockEntity) {
         dataStorage.data().put(blockEntity.getId(), NullRenderData());
     }
 
     @LuaFunction
-    public void Send(DataSenderBlockEntity blockEntity) {
+    public void send(DataSenderBlockEntity blockEntity) {
         for (Player player : blockEntity.getLevel().players()) {
             ItemStack item = player.getItemBySlot(EquipmentSlot.HEAD);
 

@@ -13,3 +13,16 @@ Binary input/output:
 Analogue input/output:
 - `getAnalogChannel(int channel_ID)`
 - `setAnalogChannel(int channel_ID, int value)`
+
+
+## Data Sender - functions
+This is for controlling an overlay that apprises when the data glasses are equipment.
+>The most important function is `send()`
+
+### Util
+- `send()` sends the data to the glasses
+- `clear()` clears all the data
+
+### Text
+- `createText(String text, int x, int y)`| returns: **text_index**
+- `deleteText(text_index)`
