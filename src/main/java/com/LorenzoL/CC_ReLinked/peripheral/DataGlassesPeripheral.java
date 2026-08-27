@@ -7,6 +7,7 @@ import com.LorenzoL.CC_ReLinked.item.ModItems;
 import dan200.computercraft.api.lua.LuaException;
 import dan200.computercraft.api.lua.LuaFunction;
 import dan200.computercraft.api.peripheral.GenericPeripheral;
+import dan200.computercraft.api.peripheral.PeripheralType;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -22,6 +23,8 @@ public class DataGlassesPeripheral implements GenericPeripheral {
     public String id() {
         return "cc_relinked:dataglasses_peripheral";
     }
+    @Override
+    public PeripheralType getType() { return PeripheralType.ofType("ccrl_data_sender"); }
 
     // ===== LUA =====
     // ===== Functions

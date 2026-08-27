@@ -4,15 +4,14 @@ import com.LorenzoL.CC_ReLinked.Config;
 import com.LorenzoL.CC_ReLinked.block.entity.CableHubBlockEntity;
 import dan200.computercraft.api.lua.LuaFunction;
 import dan200.computercraft.api.peripheral.GenericPeripheral;
+import dan200.computercraft.api.peripheral.PeripheralType;
 import edn.stratodonut.drivebywire.wire.WireNetworkManager;
-
-import java.util.Map;
 
 public class CableHubPeripheral implements GenericPeripheral {
     @Override
-    public String id() {
-        return "cc_relinked:cablehub_peripheral";
-    }
+    public String id() { return "cc_relinked:cablehub_peripheral"; }
+    @Override
+    public PeripheralType getType() { return PeripheralType.ofType("ccrl_cablehub"); }
 
     /* LUA FUNCTIONS */
     @LuaFunction
