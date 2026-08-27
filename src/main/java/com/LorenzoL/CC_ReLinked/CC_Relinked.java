@@ -2,7 +2,7 @@ package com.LorenzoL.CC_ReLinked;
 
 import com.LorenzoL.CC_ReLinked.block.ModBlocks;
 import com.LorenzoL.CC_ReLinked.block.entity.ModBlockEntitys;
-import com.LorenzoL.CC_ReLinked.component.ModDataComponents;
+import com.LorenzoL.CC_ReLinked.util.ModDataComponents;
 import com.LorenzoL.CC_ReLinked.peripheral.CableHubPeripheral;
 import com.LorenzoL.CC_ReLinked.item.ModCreativeModeTabs;
 import com.LorenzoL.CC_ReLinked.item.ModItems;
