@@ -143,15 +143,26 @@ dependencies {
     localRuntime files('libs/drivebywire-0.2.9.jar')
 
     repositories {
+        // CC: Tweaked
         maven {
             url "https://maven.squiddev.cc"
             content { includeGroup("cc.tweaked") }
+        }
+
+        // curios
+        maven {
+            name = "Illusive Soulworks maven"
+            url = "https://maven.theillusivec4.top/"
         }
     }
     dependencies {
         // CC: Tweaked
         compileOnly("cc.tweaked:cc-tweaked-1.21.1-forge-api:1.120.0")
         runtimeOnly("cc.tweaked:cc-tweaked-1.21.1-forge:1.120.0")
+
+        // curios
+        compileOnly "top.theillusivec4.curios:curios-neoforge:9.2.2+1.21.1:api"
+        runtimeOnly "top.theillusivec4.curios:curios-neoforge:9.2.2+1.21.1"
     }
 }
 
