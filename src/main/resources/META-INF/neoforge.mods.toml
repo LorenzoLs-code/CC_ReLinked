@@ -4,12 +4,25 @@ license="MIT"
 
 [[mods]]
 modId="cc_relinked"
-version="1.0.0"
+version="0.8.0"
+logoFile="logo.png"
 displayName="CC Relinked"
+description="Adds compatibility between CC: Tweaked & Drive-By-Wire. And other practical things, too."
+authors="LorenzoL"
+
+displayURL="https://github.com/LorenzoLs-code"
+issueTrackerURL="https://github.com/LorenzoLs-code/CC_ReLinked/issues"
 
 [[dependencies.cc_relinked]]
 modId="computercraft"
 type="required"
 versionRange="[1.120.0,)"
 ordering="AFTER"
+side="BOTH"
+
+[[dependencies.cc_relinked]]
+modId="curios"
+type="optional"
+versionRange="[9.2.2+1.21.1,)"
+ordering="NONE"
 side="BOTH"
