@@ -1,25 +1,21 @@
+# CC: ReLinked
+CC: ReLinked is a **addon** of the minecraft mod **ComputerCraft** that adds a few things and a **compatibility** with the [Drive-By-Wire (with sable)](https://modrinth.com/project/KsqvI0hD).
 
-Installation information
-=======
+Available on [Modrinth](https://modrinth.com/project/cc_relinked/)
 
-This template repository can be directly cloned to get you started with a new
-mod. Simply create a new repository cloned from this one, by following the
-instructions provided by [GitHub](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template).
+It adds the following stuff:
+## Cabel Hub
+This block has a configurable amount of (**Drive-By-Wire**) **channels** that you can controll via a cc peripheral.
 
-Once you have your clone, simply open the repository in the IDE of your choice. The usual recommendation for an IDE is either IntelliJ IDEA or Eclipse.
+## Data Sender & Data Glasses
+These tow work in combinaton.
+By **linking** the the Data Glasses with the Data Sender and then equiping the glasses you have a **overlay** that is **controlable/customizable** via a cc peripheral
 
-If at any point you are missing libraries in your IDE, or you've run into problems you can
-run `gradlew --refresh-dependencies` to refresh the local cache. `gradlew clean` to reset everything 
-{this does not affect your code} and then start the process again.
+---
+# Dokumentation
+- [Peripherals](docs/peripheral.md)
 
-Mapping Names:
-============
-By default, the MDK is configured to use the official mapping names from Mojang for methods and fields 
-in the Minecraft codebase. These names are covered by a specific license. All modders should be aware of this
-license. For the latest license text, refer to the mapping file itself, or the reference copy here:
-https://github.com/NeoForged/NeoForm/blob/main/Mojang.md
+---
+This was my **first mod** that I coded with **actual code**, so **feal free to look into the code**.
 
-Additional Resources: 
-==========
-Community Documentation: https://docs.neoforged.net/  
-NeoForged Discord: https://discord.neoforged.net/
+For this mod I used a **[template](https://github.com/NeoForgeMDKs) from NeoForge,** so it can be that there are **things that are not used** by the mod and were created from this Template.
