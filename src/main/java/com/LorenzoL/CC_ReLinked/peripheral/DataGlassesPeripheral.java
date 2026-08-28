@@ -15,6 +15,9 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import top.theillusivec4.curios.api.CuriosApi;
+import top.theillusivec4.curios.api.type.capability.ICuriosItemHandler;
+import top.theillusivec4.curios.api.type.inventory.ICurioStacksHandler;
 
 import java.util.*;
 
@@ -103,29 +106,50 @@ public class DataGlassesPeripheral implements GenericPeripheral {
         }
 
     // ===== Rendering
-    public static void RenderOverlay(GuiGraphics guiGraphics, DeltaTracker deltaTracker) {
+    public static <slotInventory> void RenderOverlay(GuiGraphics guiGraphics, DeltaTracker deltaTracker) {
         // ====== checks =====
         // check if the player is in the menu or something like that
         Player player = Minecraft.getInstance().player;
         if (player == null) { return; }
 
-        // check if the glasses are on
+        ItemStack DataGlasses;
+
         ItemStack helmet = player.getItemBySlot(EquipmentSlot.HEAD);
-        if (helmet.getItem() !=  ModItems.DataGlasses.get()) { return; }
+        if (helmet.getItem() !=  ModItems.DataGlasses.get()) {
+            boolean hasDataGlasses = CuriosApi.getCuriosInventory(player).map(curiosInventory -> curiosInventory.getStacksHandler("head").map(slotInventory -> {
+                                for (int i = 0; i < slotInventory.getSlots(); i++) {
+                                    if (slotInventory.getStacks().getStackInSlot(i)
+                                            .is(ModItems.DataGlasses.get())) {
+                                        return true;
+                                    }}
+                                return false;}).orElse(false)).orElse(false);
+            if (!hasDataGlasses) {return;}}
 
         // check if the glasses are connected
-        if (!helmet.getOrDefault(ModDataComponents.GLASSES_CONNECTED.get(), false)) { guiGraphics.drawString(
-                Minecraft.getInstance().font, "Not Linked", 5, 5, 0xFFFFFF); return; }
+        if (!helmet.getOrDefault(ModDataComponents.GLASSES_CONNECTED.get(), false)) {
+            ItemStack maybeDataGlasses = CuriosApi.getCuriosInventory(player).map(curiosInventory -> curiosInventory.getStacksHandler("head").map(slotInventory -> {
+                                for (int i = 0; i < slotInventory.getSlots(); i++) {
+                                    ItemStack item = slotInventory.getStacks().getStackInSlot(i);
+                                    if (item.getOrDefault(ModDataComponents.GLASSES_CONNECTED.get(), false)) {
+
+                                        return item;
+                                    }}
+                return helmet;}).orElse(helmet)).orElse(helmet);
+            if (helmet == maybeDataGlasses) {
+                guiGraphics.drawString(
+                        Minecraft.getInstance().font, "Not Linked", 5, 5, 0xFFFFFF); return;
+            } else { DataGlasses = maybeDataGlasses;}
+        } else {DataGlasses = helmet;}
 
         // ====== Actual Code ======
         UUID senderId;
         try {
-            senderId = helmet.get(ModDataComponents.CONNECTED_BLOCK.get());
+            senderId = DataGlasses.get(ModDataComponents.CONNECTED_BLOCK.get());
         } catch (Exception e) { guiGraphics.drawString(
                 Minecraft.getInstance().font, "Not Linked", 5, 5, 0xFFFFFF); return; }
 
         OverlayLayerData RenderData =
-                helmet.get(ModDataComponents.OVERLAY_LAYER_DATA.get());
+                DataGlasses.get(ModDataComponents.OVERLAY_LAYER_DATA.get());
 
         boolean count = true;
         try {
