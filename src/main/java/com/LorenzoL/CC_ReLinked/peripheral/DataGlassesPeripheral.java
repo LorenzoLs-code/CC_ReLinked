@@ -35,7 +35,7 @@ public class DataGlassesPeripheral implements GenericPeripheral {
 
 
     // == Text
-    @LuaFunction
+    @LuaFunction(mainThread = true)
     public int createText(DataSenderBlockEntity blockEntity, String text, int x, int y) {
         OverlayLayerData current = dataStorage.data().getOrDefault(blockEntity.getId(), NullRenderData());
 
@@ -48,7 +48,7 @@ public class DataGlassesPeripheral implements GenericPeripheral {
         return  updatedTextCommands.size() - 1;
     }
 
-    @LuaFunction
+    @LuaFunction(mainThread = true)
     public void deleteText(DataSenderBlockEntity blockEntity, int text_index) throws LuaException {
         OverlayLayerData current = dataStorage.data().getOrDefault(blockEntity.getId(), NullRenderData());
 
@@ -61,7 +61,7 @@ public class DataGlassesPeripheral implements GenericPeripheral {
     }
 
     // == Fill
-    @LuaFunction
+    @LuaFunction(mainThread = true)
     public int createFill(DataSenderBlockEntity blockEntity, int x1, int y1, int x2, int y2, int color) {
         OverlayLayerData current = dataStorage.data().getOrDefault(blockEntity.getId(), NullRenderData());
 
@@ -74,7 +74,7 @@ public class DataGlassesPeripheral implements GenericPeripheral {
         return  updatedFillCommands.size() - 1;
     }
 
-    @LuaFunction
+    @LuaFunction(mainThread = true)
     public void deleteFill(DataSenderBlockEntity blockEntity, int fill_index) throws LuaException {
         OverlayLayerData current = dataStorage.data().getOrDefault(blockEntity.getId(), NullRenderData());
 
@@ -88,12 +88,12 @@ public class DataGlassesPeripheral implements GenericPeripheral {
 
 
     // == Util
-    @LuaFunction
+    @LuaFunction(mainThread = true)
     public void clear(DataSenderBlockEntity blockEntity) {
         dataStorage.data().put(blockEntity.getId(), NullRenderData());
     }
 
-    @LuaFunction
+    @LuaFunction(mainThread = true)
     public void send(DataSenderBlockEntity blockEntity) {
         for (Player player : blockEntity.getLevel().players()) {
             ItemStack item = player.getItemBySlot(EquipmentSlot.HEAD);

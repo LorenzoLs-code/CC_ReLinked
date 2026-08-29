@@ -34,6 +34,6 @@ Name: `"ccrl_data_sender"`
 - `deleteText(text_index)`
 
 ### Fill
-This a rectangle with a color
+This a rectangle with a specific color
 - `createFill(int x1, int y1, int x2, int y2, int color)`| returns: **fill_index**
 - `deleteFill(int fill_index)`
