@@ -19,6 +19,8 @@ Analogue input/output:
 
 ## Data Sender - functions
 This is for controlling an overlay that apprises when the data glasses are equipment.
+Thees functions are basically **manipulating a buffer**. In the buffer you can create/delete text, 
+and clear it. When you send it you basically **create a copy** of the buffer that is than given to the data glasses.
 >The most important function is `send()`
 
 Name: `"ccrl_data_sender"`
