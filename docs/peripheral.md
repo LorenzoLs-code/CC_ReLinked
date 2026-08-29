@@ -32,3 +32,8 @@ Name: `"ccrl_data_sender"`
 ### Text
 - `createText(String text, int x, int y)`| returns: **text_index**
 - `deleteText(text_index)`
+
+### Fill
+This a rectangle with a color
+- `createFill(int x1, int y1, int x2, int y2, int color)`| returns: **fill_index**
+- `deleteFill(int fill_index)`

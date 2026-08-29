@@ -33,6 +33,8 @@ public class DataGlassesPeripheral implements GenericPeripheral {
     // ===== Functions
     private OverlayDataStorage dataStorage = new OverlayDataStorage(new HashMap<>());
 
+
+    // == Text
     @LuaFunction
     public int createText(DataSenderBlockEntity blockEntity, String text, int x, int y) {
         OverlayLayerData current = dataStorage.data().getOrDefault(blockEntity.getId(), NullRenderData());
@@ -58,6 +60,34 @@ public class DataGlassesPeripheral implements GenericPeripheral {
         dataStorage.data().put(blockEntity.getId(), updated);
     }
 
+    // == Fill
+    @LuaFunction
+    public int createFill(DataSenderBlockEntity blockEntity, int x1, int y1, int x2, int y2, int color) {
+        OverlayLayerData current = dataStorage.data().getOrDefault(blockEntity.getId(), NullRenderData());
+
+        List<FillCommand> updatedFillCommands = new ArrayList<>(current.fillCommands());
+        updatedFillCommands.add(new FillCommand(x1, y1, x2, y2, color));
+
+        OverlayLayerData updated = new OverlayLayerData(current.textCommands(), updatedFillCommands);
+        dataStorage.data().put(blockEntity.getId(), updated);
+
+        return  updatedFillCommands.size() - 1;
+    }
+
+    @LuaFunction
+    public void deleteFill(DataSenderBlockEntity blockEntity, int fill_index) throws LuaException {
+        OverlayLayerData current = dataStorage.data().getOrDefault(blockEntity.getId(), NullRenderData());
+
+        List<FillCommand> updatedFillCommands = new ArrayList<>(current.fillCommands());
+        if (fill_index < 0 || fill_index >= updatedFillCommands.size()) { throw new LuaException("Invalid fill index: " + fill_index); }
+        updatedFillCommands.remove(fill_index);
+
+        OverlayLayerData updated = new OverlayLayerData(current.textCommands(), updatedFillCommands);
+        dataStorage.data().put(blockEntity.getId(), updated);
+    }
+
+
+    // == Util
     @LuaFunction
     public void clear(DataSenderBlockEntity blockEntity) {
         dataStorage.data().put(blockEntity.getId(), NullRenderData());
