@@ -1,7 +1,7 @@
 package com.LorenzoL.CC_ReLinked;
 
+import com.LorenzoL.CC_ReLinked.item.DataGlassesOverlayRenderer;
 import com.LorenzoL.CC_ReLinked.peripheral.DataGlassesPeripheral;
-import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -17,8 +17,8 @@ import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 @Mod(value = CC_Relinked.MOD_ID, dist = Dist.CLIENT)
 // You can use EventBusSubscriber to automatically register all static methods in the class annotated with @SubscribeEvent
 @EventBusSubscriber(modid = CC_Relinked.MOD_ID, value = Dist.CLIENT)
-public class ExampleModClient {
-    public ExampleModClient(ModContainer container) {
+public class CC_RelinkedClient {
+    public CC_RelinkedClient(ModContainer container) {
         // Allows NeoForge to create a config screen for this mod's configs.
         // The config screen is accessed by going to the Mods screen > clicking on your mod > clicking on config.
         // Do not forget to add translations for your config options to the en_us.json file.
@@ -36,7 +36,7 @@ public class ExampleModClient {
     static void onRegisterGuiLayers(RegisterGuiLayersEvent event) {
         event.registerAboveAll(
                 ResourceLocation.fromNamespaceAndPath(CC_Relinked.MOD_ID, "data_glasses_overlay"),
-                DataGlassesPeripheral::RenderOverlay
+                DataGlassesOverlayRenderer::RenderOverlay
         );
     }
 }
