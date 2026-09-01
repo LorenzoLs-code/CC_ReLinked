@@ -4,7 +4,7 @@ license="MIT"
 
 [[mods]]
 modId="cc_relinked"
-version="0.1.0"
+version="0.1.1"
 logoFile="logo.png"
 displayName="CC Relinked"
 description="Adds compatibility between CC: Tweaked & Drive-By-Wire. And other practical things, too."
