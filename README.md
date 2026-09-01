@@ -1,7 +1,7 @@
 # CC: ReLinked
 CC: ReLinked is an **addon** of the minecraft mod **ComputerCraft** that adds a few things and a **compatibility** with the [Drive-By-Wire (with sable)](https://modrinth.com/project/KsqvI0hD).
 
-Available on [Modrinth](https://modrinth.com/project/cc_relinked/)
+Maybe available on [Modrinth](https://modrinth.com/project/cc_relinked/)
 
 It adds the following stuff:
 ## Cable Hub
@@ -15,11 +15,12 @@ By **linking** the Data Glasses with the Data Sender and then equipping the glas
 ## Feedback & Bug Reports
 Feedback and suggestions are welcome!
 
-> I won't be able to respond from August 31 to September 9.
+> I won't be able to respond from September 1 to September 10.
 
-[Feedback & Bug Reports](https://github.com/Lorenzols-code/cc_relinked/issues)
+[Feedback & Bugs Reports](https://github.com/Lorenzols-code/cc_relinked/issues)
 
 ## Documentation
+
 - [Peripherals](docs/peripheral.md)
 
 ---
