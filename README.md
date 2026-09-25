@@ -13,9 +13,7 @@ By **linking** the Data Glasses with the Data Sender and then equipping the glas
 
 ---
 ## Feedback & Bug Reports
-Feedback and suggestions are welcome!
-
-> I won't be able to respond from September 1 to September 10.
+Please give Feedback. Suggestions are very welcome!
 
 [Feedback & Bugs Reports](https://github.com/Lorenzols-code/cc_relinked/issues)
 
