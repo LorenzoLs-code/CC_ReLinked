@@ -6,53 +6,68 @@ import dan200.computercraft.api.lua.LuaFunction;
 import dan200.computercraft.api.peripheral.GenericPeripheral;
 import dan200.computercraft.api.peripheral.PeripheralType;
 import edn.stratodonut.drivebywire.wire.WireNetworkManager;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 
 public class CableHubPeripheral implements GenericPeripheral {
     @Override
     public String id() { return "cc_relinked:cablehub_peripheral"; }
+
     @Override
     public PeripheralType getType() { return PeripheralType.ofType("ccrl_cablehub"); }
 
     /* LUA FUNCTIONS */
-    @LuaFunction
+
+    @LuaFunction(mainThread = true)
     public boolean getChannel(CableHubBlockEntity myCableHub, int channel_ID) {
-        int value = getAnalogChannel(myCableHub, channel_ID);
-
-        if (value > 0) { return true; }
-        else { return false; }
-
+        return getAnalogChannel(myCableHub, channel_ID) > 0;
     }
 
-    @LuaFunction
+    @LuaFunction(mainThread = true)
     public boolean setChannel(CableHubBlockEntity myCableHub, int channel_ID, boolean value) {
-        int r_value;
-        if (value) { r_value = 15; } else { r_value = 0; }
-
-        return setAnalogChannel(myCableHub, channel_ID, r_value);
+        return setAnalogChannel(myCableHub, channel_ID, value ? 15 : 0);
     }
-    // ----
-    @LuaFunction
+
+    @LuaFunction(mainThread = true)
     public int getAnalogChannel(CableHubBlockEntity myCableHub, int channel_ID) {
+        if (myCableHub == null || myCableHub.getLevel() == null) return 0;
         try {
-            return WireNetworkManager
+            Integer val = WireNetworkManager
                     .get(myCableHub.getLevel())
                     .getSourceSignals(myCableHub.getBlockPos())
                     .get(Integer.toString(channel_ID));
+            return val != null ? val : 0;
         } catch (Exception e) {
             return 0;
         }
     }
 
-    @LuaFunction
+    @LuaFunction(mainThread = true)
     public boolean setAnalogChannel(CableHubBlockEntity myCableHub, int channel_ID, int value) {
-        if (channel_ID > Config.MAX_CABLEHUB_CHANNELS.get()) { return false; }
+        if (myCableHub == null) return false;
+        Level level = myCableHub.getLevel();
+        if (level == null) return false;
+
+        if (channel_ID > Config.MAX_CABLEHUB_CHANNELS.get() || channel_ID < 0) {
+            return false;
+        }
+
+        BlockPos pos = myCableHub.getBlockPos();
+        String channelStr = Integer.toString(channel_ID);
 
         WireNetworkManager.trySetSignalAt(
-                myCableHub.getLevel(),
-                myCableHub.getBlockPos(),
-                Integer.toString(channel_ID),
+                level,
+                pos,
+                channelStr,
                 value
         );
+
+        myCableHub.setChanged();
+        BlockState state = myCableHub.getBlockState();
+        level.sendBlockUpdated(pos, state, state, 3);
+        level.updateNeighborsAt(pos, state.getBlock());
+
         return true;
     }
 }
