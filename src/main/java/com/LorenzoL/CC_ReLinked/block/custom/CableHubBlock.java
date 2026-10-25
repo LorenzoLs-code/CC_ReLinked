@@ -20,6 +20,7 @@ public class CableHubBlock extends BaseEntityBlock implements MultiChannelWireSo
     }
 
     public static final MapCodec<CableHubBlock> CODEC = simpleCodec(CableHubBlock::new);
+
     @Override
     protected MapCodec<? extends BaseEntityBlock> codec() {
         return CODEC;
@@ -36,11 +37,18 @@ public class CableHubBlock extends BaseEntityBlock implements MultiChannelWireSo
         return new CableHubBlockEntity(blockPos, blockState);
     }
 
+    // Inform the engine that this block acts as a signal/power source
+    @Override
+    public boolean isSignalSource(BlockState state) {
+        return true;
+    }
+
     /* DRIVE BY WIRE stuff */
     @Override
     public List<String> wire$getChannels() {
         List<String> toreturn = new ArrayList<>();
-        for (int i = 0; i <= Config.MAX_CABLEHUB_CHANNELS.get(); i++) {
+        int max = Config.MAX_CABLEHUB_CHANNELS.get();
+        for (int i = 0; i <= max; i++) {
             toreturn.add(Integer.toString(i));
         }
         return toreturn;
@@ -49,18 +57,20 @@ public class CableHubBlock extends BaseEntityBlock implements MultiChannelWireSo
     @Override
     public String wire$nextChannel(String s, boolean b) {
         int i;
-        try { i = Integer.parseInt(s);
-        } catch (NumberFormatException e) { return "0"; }
+        try {
+            i = Integer.parseInt(s);
+        } catch (NumberFormatException e) {
+            return "0";
+        }
 
-        if (!b) { // moving up
+        int max = Config.MAX_CABLEHUB_CHANNELS.get();
 
-            if (i >= Config.MAX_CABLEHUB_CHANNELS.get()) { return "0"; }
-            else { return Integer.toString(i+1); }
-
-        } else { // moving down
-
-            if (i <= 0) { return Integer.toString(Config.MAX_CABLEHUB_CHANNELS.get()); }
-            else { return Integer.toString(i-1); }
+        if (!b) { // Moving up
+            if (i >= max) { return "0"; }
+            else { return Integer.toString(i + 1); }
+        } else { // Moving down
+            if (i <= 0) { return Integer.toString(max); }
+            else { return Integer.toString(i - 1); }
         }
     }
 }
